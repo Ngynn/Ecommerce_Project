@@ -1,3 +1,5 @@
+name: medusa_ecommerce
+
 services:
   # PostgreSQL Database
   postgres:
@@ -11,9 +13,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_ecommerce:/var/lib/postgresql/data
     networks:
-      - medusa_network
+      - medusa_network_ecommerce
 
   # Redis
   redis:
@@ -23,11 +25,9 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - medusa_network
+      - medusa_network_ecommerce
 
-  # Medusa Server
-  # This service runs the Medusa backend application
-  # and the admin dashboard.
+  # Medusa Backend
   medusa:
     build: .
     container_name: medusa_backend_ecommerce
@@ -47,11 +47,11 @@ services:
       - .:/app
       - /app/node_modules
     networks:
-      - medusa_network
+      - medusa_network_ecommerce
 
 volumes:
-  postgres_data:
+  postgres_data_ecommerce:
 
 networks:
-  medusa_network:
+  medusa_network_ecommerce:
     driver: bridge
