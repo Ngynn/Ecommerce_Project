@@ -8,30 +8,37 @@ import Register from "./pages/Register/Register";
 import Header from "./components/Header/Header";
 import About from "./pages/About/About";
 import Footer from "./components/Footer/Footer";
-import Policy from "./pages/Policy/Policy";
-import "./App.css";
 import FAQs from "./components/FAQs/FAQs";
+import VnpayReturn from "./pages/Checkout/VnpayReturn";
+import "./App.css";
+
+import { CartProvider } from "./context/CartContext";
+
 function App() {
   return (
-    <Router>
-      <div className="app-container">
-        <Header />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/policy" element={<Policy />} />
-            <Route path="/faqs" element={<FAQs />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <CartProvider>
+      <Router>
+        <div className="app-container">
+          <Header />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} /> 
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/faqs" element={<FAQs />} />
+              <Route path="*" element={<h2>404 - Page Not Found</h2>} />
+              <Route path="/vnpay-return" element={<VnpayReturn />} />
+
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 

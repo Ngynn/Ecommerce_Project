@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "crypto-browserify": "^3.12.1",
     "https-browserify": "^1.0.0",
+    "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^4.12.0",

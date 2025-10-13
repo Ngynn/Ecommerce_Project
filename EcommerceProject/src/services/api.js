@@ -8,7 +8,7 @@ const api = axios.create({
   headers: {
     "x-publishable-api-key": PUBLISHABLE_KEY,
   },
-  withCredentials: true, // cho phép gửi cookie (dùng cho session cart)
+   withCredentials: true, // cho phép gửi cookie (dùng cho session cart)
 });
 
 /* ---------------- SẢN PHẨM ---------------- */

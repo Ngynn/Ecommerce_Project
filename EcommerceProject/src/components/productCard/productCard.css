@@ -1,106 +1,156 @@
+/* ==== Product Card ==== */
 .product-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border-radius: 12px;
   padding: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 380px; /* 🔥 chiều cao cố định để đồng đều */
 }
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.product-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-.product-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.product-card p {
-  color: var(--color-primary);
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-}
-
-.product-card-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: auto;
-}
-
-.btn {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
+/* === Ảnh sản phẩm === */
+.product-img {
+  position: relative;
   text-align: center;
-  flex: 1;
-  transition: background-color 0.3s ease;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 180px; /* 🔥 cố định chiều cao ảnh */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.btn:first-child {
-  background-color: var(--color-secondary);
-  color: white;
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
 }
 
-.btn:last-child {
-  background-color: var(--color-primary);
-  color: white;
-}
-
-.btn:hover {
-  opacity: 0.9;
-}
-
-/* Toast notification */
-.toast {
+/* Overlay nút khám phá */
+.explore-overlay {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #4caf50;
-  color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 10px;
+}
+
+.product-img:hover .explore-overlay {
+  opacity: 1;
+}
+
+.btn-explore {
+  display: inline-block;
   padding: 10px 20px;
-  border-radius: 4px;
-  animation: slideUp 0.3s ease;
+  border: 2px solid #2563eb;
+  border-radius: 30px;
+  color: #3b82f6;
+  background: transparent;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 10px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+.btn-explore:hover {
+  background: #2563eb;
+  color: #fff;
 }
 
-/* Responsive styles */
-@media screen and (max-width: 768px) {
-  .product-card {
-    padding: 10px;
-  }
+/* === Info sản phẩm === */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  margin-top: 12px;
+}
 
-  .product-card img {
-    height: 150px;
-  }
+/* Phần trên: Tên + Giá */
+.info-top {
+  flex-grow: 1;
+}
 
-  .product-card-actions {
-    flex-direction: column;
-  }
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 5px 0 6px;
+  line-height: 1.3em;
+  color: #111;
+  height: 38px; /* 🔥 cố định chiều cao tên sản phẩm */
+  overflow: hidden;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 2; */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.price-box {
+  margin-top: 6px;
+}
+
+.price {
+  color: #ef4444;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  margin-left: 8px;
+  color: #888;
+  font-size: 13px;
+}
+
+/* Phần dưới: Trạng thái + Nút giỏ hàng */
+.info-bottom {
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* 🔥 đẩy phần này xuống đáy card */
+}
+
+.status {
+  font-size: 14px;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-cart {
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cart:hover {
+  background: #3b82f6;
 }

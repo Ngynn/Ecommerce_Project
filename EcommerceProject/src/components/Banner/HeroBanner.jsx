@@ -7,6 +7,7 @@ const HeroBanner = () => {
 
   return (
     <section className="hero-banner">
+      <div className="hero-overlay"></div>
       <div className="hero-content">
         <h1>Website mới - Nâng tầm trải nghiệm khách hàng</h1>
         <p>

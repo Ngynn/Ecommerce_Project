@@ -1,22 +1,27 @@
 .container {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+}
+h1{
+  padding-bottom: 20px;
 }
 
 /* Intro Section */
 .intro {
   text-align: center;
   padding: 40px 20px;
-  background: var(--color-primary);
-  color: white;
+
   border-radius: 8px;
   margin-bottom: 40px;
 }
 
 .intro h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  line-height: 1.2;
+  font-size: 4.8rem;
+  font-family: var(--font-title);
+  background: linear-gradient(108deg, #2563eb 3.84%, #3b82f6 22.43%, #06b6d4 60.36%, #2563eb 96.59%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .intro p {
@@ -136,5 +141,133 @@
   .promo-cards,
   .testimonial-cards {
     grid-template-columns: 1fr;
+  }
+}
+/* ========== Khung Highlight Section ========== */
+.highlight-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+   /* nền tối */
+  background-color: #111827 rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  padding: 40px;
+  color: #fff;
+  margin: 40px 0;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/src/images/outstand-bg.jpg');  
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+/* Bên trái */
+.highlight-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.highlight-left .tag {
+  font-size: 0.9rem;
+  color: #f87171;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.highlight-left h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.highlight-left p {
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #e5e7eb;
+}
+
+.btn-contact {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: #111827;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-contact:hover {
+  background: #f3f4f6;
+}
+
+/* Bên phải */
+.highlight-right {
+  flex: 1;
+  background: rgba(31, 41, 55, 0.95);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-right h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-bottom: 1px solid #374151;
+  padding-bottom: 10px;
+}
+
+.bestseller-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bestseller-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #1f2937;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: transform 0.3s;
+}
+
+.bestseller-item:hover {
+  transform: translateX(5px);
+}
+
+.bestseller-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.bestseller-item h4 {
+  font-size: 0.95rem;
+  margin: 0 0 4px 0;
+}
+
+.bestseller-item p {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .highlight-box {
+    flex-direction: column;
   }
 }

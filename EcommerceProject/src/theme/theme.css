@@ -13,7 +13,7 @@
 
   /* ==== Màu chữ (Text) ==== */
   --color-text: #111827; /* Màu chữ chính (xám đậm gần đen) */
-  --color-text-light: #bcc3d1; /* Màu chữ phụ */
+  --color-text-light: #6b7280; /* Màu chữ phụ */
 
   /* ==== Màu trạng thái (State) ==== */
   --color-success: #16a34a;
