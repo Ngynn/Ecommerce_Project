@@ -38,9 +38,9 @@
 .category-item:hover {
   transform: translate3d(0, -10px, 0);
   background: #fff;
-  border: 2px solid #ff4dc4;
-  box-shadow: 0 6px 18px rgba(255, 0, 150, 0.2);
-  color: #ff4dc4;
+  border: 2px solid #2563eb;
+  box-shadow: 0 6px 18px rgba(6, 72, 213, 0.7);
+  color: #2563eb;
   transition: all 0.5s ease-in-out;
   /* margin-bottom: 1.25px; */
 }

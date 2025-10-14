@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { FaUserCircle, FaShoppingCart, FaSearch } from "react-icons/fa";
 import { useCart } from "../../context/CartContext"; // ✅ import context
+import Logo from "../../assets/images/DigitexLogoWhite.png";
+import { menuCategories } from "../Category/Category";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { fetchProducts } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import ProductCard from "../../components/productCard/ProductCard";
@@ -8,20 +7,51 @@ import "./home.css";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const regionId = "reg_01K73N9QAJJ6DVF7FGKAKCJQG0";
 
   const handleCategoryClick = (category) => {
     navigate(`/products?category=${category}`);
   };
 
   useEffect(() => {
-    fetchProducts()
-      .then(setProducts)
-      .catch((err) => console.error(err));
+    fetch(
+      `http://localhost:9000/store/products?region_id=${regionId}&limit=1000`,
+      {
+        headers: {
+          "x-publishable-api-key":
+            "pk_d4bf2faebacb69611013a1fd3c32bb8f76ab55d06f2068d92b0efd01a377ecfc",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(
+          "Test products:",
+          data.products.map((p) => ({
+            title: p.title,
+            created_at: p.created_at,
+          }))
+        );
+
+        setProducts(data.products || []);
+      })
+      .catch((err) => console.error("Lỗi khi lấy sản phẩm:", err));
   }, []);
 
-  // Lấy sản phẩm từ database (4 sản phẩm nổi bật + 3 bán chạy làm ví dụ)
-  const featuredProducts = products.slice(0, 4);
-  const bestSellers = products.slice(4, 7);
+  // 🔥 Lấy ngày hiện tại trừ 30 ngày
+  const now = new Date();
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(now.getDate() - 30);
+
+  // 🕒 Lọc sản phẩm tạo trong 30 ngày qua
+  const recentProducts = products.filter((p) => {
+    if (!p.created_at) return false;
+    const createdAt = new Date(p.created_at);
+    return createdAt >= thirtyDaysAgo;
+  });
+
+  // 🔝 8 sản phẩm nổi bật
+  const bestSellers = products.slice(0, 8);
 
   return (
     <div className="container">
@@ -42,7 +72,7 @@ export default function Home() {
       {/* Thanh category */}
       <CategoryBar onCategoryClick={handleCategoryClick} />
 
-      {/* 🔥 Sản phẩm nổi bật + Bán chạy */}
+      {/* 🔥 Sản phẩm nổi bật */}
       <section className="highlight-box">
         <div className="highlight-left">
           <span className="tag">🔥 Xu Hướng 2025</span>
@@ -52,22 +82,63 @@ export default function Home() {
             Microsoft Office, thiết kế đồ họa, VPN/Antivirus... đáp ứng mọi nhu
             cầu học tập, công việc và giải trí với giá cực kỳ cạnh tranh.
           </p>
-          <button className="btn-contact">Liên hệ tư vấn tại đây →</button>
+          <button className="btn-contact" onClick={() => navigate("/products")}>
+            Liên hệ tư vấn tại đây →
+          </button>
         </div>
 
         <div className="highlight-right">
-          <h3>Bán chạy</h3>
-          <ul className="bestseller-list">
-            {bestSellers.map((item) => (
-              <li key={item.id} className="bestseller-item">
-                <img src={item.image} alt={item.name} />
-                <div>
-                  <h4>{item.name}</h4>
-                  <p>{item.price} đ</p>
+          <h3>Nổi bật</h3>
+          {bestSellers.length > 0 ? (
+            <>
+              {bestSellers.length > 4 && (
+                <div className="bestseller-scroll-vertical">
+                  <ul className="bestseller-list-vertical">
+                    {bestSellers.slice(2).map((p) => {
+                      // ✅ Lấy giá chuẩn theo calculated_price giống ProductCard
+                      const price =
+                        p?.variants?.[0]?.calculated_price
+                          ?.calculated_amount || 0;
+                      const image = p.thumbnail || "/default-product.png";
+
+                      return (
+                        <li
+                          key={p.id}
+                          className="bestseller-item"
+                          onClick={() => navigate(`/products/${p.id}`)}
+                        >
+                          <img src={image} alt={p.title} />
+                          <div>
+                            <h4>{p.title}</h4>
+                            <p className="price-highlight">
+                              {price.toLocaleString()} đ
+                            </p>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-              </li>
-            ))}
-          </ul>
+              )}
+            </>
+          ) : (
+            <p>Đang tải sản phẩm...</p>
+          )}
+        </div>
+      </section>
+
+      {/* 🛒 Sản phẩm mới nhất trong 30 ngày */}
+      <section className="product-section">
+        <h2>Sản phẩm mới nhất</h2>
+        <div className="product-grid">
+          {recentProducts.length > 0 ? (
+            recentProducts
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+              .slice(0, 8)
+              .map((p) => <ProductCard key={p.id} product={p} />)
+          ) : (
+            <p>Không có sản phẩm mới nhất</p>
+          )}
         </div>
       </section>
     </div>

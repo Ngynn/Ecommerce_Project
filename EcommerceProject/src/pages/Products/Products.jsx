@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../components/productCard/ProductCard";
 import SidebarCategories from "../../components/SidebarCategories/SidebarCategories";
-import "./Products.css";
+import "./products.css";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,7 +63,7 @@ export default function Products() {
 
         <div className="content">
           {/* Nội dung chính */}
-          <div style={{ flex: 1 }}>
+          <div className="title-style" style={{ flex: 1 }}>
             <h2 style={{ marginBottom: "20px" }}>
               {category === "All" ? "Tất cả sản phẩm" : `Sản phẩm: ${category}`}
             </h2>

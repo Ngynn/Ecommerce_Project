@@ -62,6 +62,7 @@ export default function Cart() {
 
   // Chỉ tính tổng các sản phẩm được chọn
   const total = cart.reduce((sum, item) => {
+    
     if (!selected.includes(item.id)) return sum;
     const price = item?.variants?.[0]?.calculated_price?.calculated_amount || 0;
 
@@ -80,8 +81,7 @@ export default function Cart() {
 
         {cart.map((item, index) => {
           // const price = item?.variants?.[0]?.prices?.[0]?.amount / 100 || 0;
-          const price =
-            item?.variants?.[0]?.calculated_price?.calculated_amount || 0;
+          const price = item?.variants?.[0]?.calculated_price?.calculated_amount || 0;
 
           return (
             <div key={index} className="cart-row">
