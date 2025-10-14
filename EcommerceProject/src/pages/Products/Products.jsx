@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../components/productCard/ProductCard";
 import SidebarCategories from "../../components/SidebarCategories/SidebarCategories";
-import "./products.css";
+import "./Products.css";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();

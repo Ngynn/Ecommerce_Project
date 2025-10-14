@@ -4,6 +4,7 @@ import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import ProductCard from "../../components/productCard/ProductCard";
 import HeroBanner from "../../components/Banner/HeroBanner";
 import "./home.css";
+
 export default function Home() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();

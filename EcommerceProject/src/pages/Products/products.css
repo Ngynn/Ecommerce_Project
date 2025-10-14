@@ -56,11 +56,19 @@
 }
 
 /* === Tiêu đề === */
-.content h2 {
+/* .content h2 {
   color: var(--color-primary);
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 20px;
+} */
+
+.title-style h2 {
+  background: linear-gradient(90deg,#3b82f6, #2563eb, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /* === Grid sản phẩm === */
@@ -123,7 +131,12 @@
 }
 
 .product-info .price {
-  color: var(--color-error);
+ 
+  background: linear-gradient(108deg, #2563eb, #3b82f6, #06b6d4, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
   font-weight: 700;
   font-size: 14px;
 }
