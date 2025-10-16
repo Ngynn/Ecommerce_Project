@@ -22,7 +22,7 @@ git clone https://github.com/QuocB-HC/MedusaJS_Test.git
 
 Cài dependencies
 ```bash
-cd my-store
+cd EcommerceProject
 npm install
 ```
 
@@ -59,4 +59,10 @@ info:    Admin URL → http://localhost:9000/app
 Tạo tài khoản admin
 ```bash
 docker compose run --rm medusa npx medusa user -e example.admin@gmail.com -p 123456
+```
+
+Chạy server cho payment vnpay và momopay
+```bash
+cd vnpay-api
+node server.js
 ```

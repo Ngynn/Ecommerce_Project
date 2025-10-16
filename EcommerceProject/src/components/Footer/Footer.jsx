@@ -1,14 +1,14 @@
 import React from "react";
 import "./FooterIntro.css";
 import { FaFacebookF, FaYoutube, FaInstagram } from "react-icons/fa"; // đổi FaEnvelope -> FaInstagram
-import Logo from "../../assets/images/DigitexLogoWhite.png";
+
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-main">
         {/* Logo + Social */}
         <div className="footer-logo-social">
-          <img src={Logo} alt="Demo Shop Logo" className="footer-logo" />
+          <img src="/logo.png" alt="Demo Shop Logo" className="footer-logo" />
           <div className="footer-social">
             <a
               href="https://www.facebook.com/amitgroup.vn"

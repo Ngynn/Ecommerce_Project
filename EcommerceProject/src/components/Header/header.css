@@ -16,14 +16,6 @@ body {
   font-weight: bold;
   margin-right: 20px;
   display: inline-block;
-  height: 30px;
-}
-
-.logo img {
-  height: 35px;
-  width: auto;
-  object-fit: contain;
-  border-radius: 15px;
 }
 
 .icon {
@@ -147,17 +139,11 @@ body {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 1rem;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  min-width: 150px;
   z-index: 1000;
-  min-width: 280px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  color: #333;
 }
 
 .menu-item {
@@ -259,17 +245,6 @@ body {
     gap: 10px;
   }
 }
-
-/* @media (max-width: 768px) {
-  .dropdown-menu {
-    grid-template-columns: 1fr;
-    width: 100%;
-    position: fixed;
-    top: auto;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-} */
 
 /* Desktop styles */
 @media screen and (min-width: 1025px) {

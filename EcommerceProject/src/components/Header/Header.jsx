@@ -5,8 +5,6 @@ import React, { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { FaUserCircle, FaShoppingCart, FaSearch } from "react-icons/fa";
 import { useCart } from "../../context/CartContext"; // ✅ import context
-import Logo from "../../assets/images/DigitexLogoWhite.png";
-import { menuCategories } from "../Category/Category";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
@@ -52,9 +50,7 @@ export default function Header() {
       </div>
 
       <NavLink to="/">
-        <h1 className="logo">
-          <img src={Logo} alt="Logo Website" />
-        </h1>
+        <h1 className="logo">Shop</h1>
       </NavLink>
 
       <div className="search-bar">
@@ -79,14 +75,6 @@ export default function Header() {
           }
         >
           Giới thiệu
-        </NavLink>
-        <NavLink
-          to="/policy"
-          className={({ isActive }) =>
-            isActive ? "nav-link active" : "nav-link"
-          }
-        >
-          Chính sách
         </NavLink>
         <NavLink
           to="/products"
