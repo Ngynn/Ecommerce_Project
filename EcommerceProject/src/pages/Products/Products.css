@@ -180,3 +180,120 @@
 .product-info .bottom button:hover {
   background: var(--color-primary-light);
 }
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 0;
+}
+
+/* Unified pagination button styles (rounded, blue: #2563eb) */
+/* Base style for both icon buttons and numbered page buttons */
+.icon-pagination-button,
+.pagination-list .page-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 9999px; /* fully rounded */
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #2563eb; /* primary color for text/icon */
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: background .12s, border-color .12s, transform .06s, color .12s;
+}
+
+/* Active / current page */
+.pagination-list .page-button.active,
+.icon-pagination-button.active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+  cursor: default;
+  transform: none;
+}
+
+/* Active / current page - numbered buttons show gradient background and white text */
+.pagination-list .page-button.active {
+  /* gradient background */
+  background: linear-gradient(108deg, #2563eb, #3b82f6, #06b6d4, #06b6d4);
+  color: #ffffff; /* số bên trong màu trắng */
+  border: 1px solid transparent;
+  cursor: default;
+  transform: none;
+
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+}
+
+/* Keep icon buttons filled blue/gradient when active (so arrows remain visible) */
+.icon-pagination-button.active {
+  background: linear-gradient(108deg, #2563eb, #3b82f6, #06b6d4, #06b6d4);
+  color: #ffffff; /* icon màu trắng */
+  border: 1px solid transparent;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+}
+
+/* Ensure SVG icons inherit white when button is active */
+.icon-pagination-button.active svg {  
+  stroke: currentColor;
+  color: #ffffff;
+}
+
+/* Hover / focus states */
+.icon-pagination-button:not(:disabled):hover,
+.pagination-list .page-button:not(.active):hover {
+  background: rgba(37,99,235,0.06);
+  border-color: #2563eb;
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.icon-pagination-button:focus,
+.pagination-list .page-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+}
+
+/* Disabled */
+.icon-pagination-button:disabled,
+.pagination-list .page-button[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Ellipsis spacing */
+.pagination .ellipsis {
+  padding: 6px 8px;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Ensure SVG icons inherit color */
+.icon-pagination-button svg {
+  color: currentColor;
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Accessibility helper (visually hidden) */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
