@@ -4,6 +4,7 @@ import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import ProductCard from "../../components/productCard/ProductCard";
 import HeroBanner from "../../components/Banner/HeroBanner";
 import "./home.css";
+import InfinityScrollBar from "../../components/InfinityScrollBar/InfinityScrollBar";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -58,6 +59,8 @@ export default function Home() {
     <div className="container">
       {/* ✅ Banner */}
       <HeroBanner />
+
+      <InfinityScrollBar />
 
       {/* Giới thiệu */}
       <section className="intro section-box">

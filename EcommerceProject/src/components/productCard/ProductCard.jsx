@@ -14,7 +14,7 @@ const price = product?.variants?.[0]?.calculated_price?.calculated_amount || 0;
     addToCart(product);
     navigate("/cart"); // 👉 Chuyển sang giỏ hàng ngay sau khi thêm
   };
-  console.log("Product data:", product)
+  // console.log("Product data:", product)
 
 
   return (

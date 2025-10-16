@@ -119,6 +119,13 @@ h1{
   font-weight: 500;
 }
 
+.product-section {
+  margin: 30px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
   .container {
