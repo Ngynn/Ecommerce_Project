@@ -201,7 +201,6 @@ export default function Products() {
   return (
     <>
       {/* ====== LIST SẢN PHẨM + SIDEBAR ====== */}
-      <div className="products-wrapper"> {/* Thêm wrapper bao ngoài */}
       <div className="container-products">
         <div className="subContainer">
           {/* Sidebar bên trái */}
@@ -393,7 +392,6 @@ export default function Products() {
           </div>
         </div>
       </div>
-      </div> {/* Đóng wrapper bao ngoài */}
 
       {/* ====== HERO “ĐĂNG KÝ TÀI KHOẢN” DƯỚI PHẦN SẢN PHẨM ====== */}
       <section className="hero-signup">

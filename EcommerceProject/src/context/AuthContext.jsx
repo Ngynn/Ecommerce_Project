@@ -17,14 +17,14 @@ export const AuthProvider = ({ children }) => {
   const [customer, setCustomer] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // 🔹 CẬP NHẬT: Kiểm tra token ở cả localStorage (Ghi nhớ) và sessionStorage (Không ghi nhớ)
-  const getToken = () => {
+  // Helper: Lấy token từ storage
+  const getToken = useCallback(() => {
     return localStorage.getItem(AUTH_TOKEN_KEY) || sessionStorage.getItem(AUTH_TOKEN_KEY);
-  };
+  }, []);
 
-  // 🔹 CẬP NHẬT: Hàm lưu token có thêm tham số rememberMe
-  const setAuthToken = (token, rememberMe = true) => {
-    // Luôn xóa token cũ ở cả 2 nơi để tránh xung đột
+  // Helper: Lưu/Xóa token
+  const setAuthToken = useCallback((token, rememberMe = true) => {
+    // Xóa token cũ ở cả 2 nơi để tránh xung đột
     localStorage.removeItem(AUTH_TOKEN_KEY);
     sessionStorage.removeItem(AUTH_TOKEN_KEY);
 
@@ -32,21 +32,30 @@ export const AuthProvider = ({ children }) => {
       if (rememberMe) {
         localStorage.setItem(AUTH_TOKEN_KEY, token); // Lưu lâu dài
       } else {
-        sessionStorage.setItem(AUTH_TOKEN_KEY, token); // Lưu phiên hiện tại (tắt tab là mất)
+        sessionStorage.setItem(AUTH_TOKEN_KEY, token); // Lưu phiên hiện tại
       }
     }
-  };
+  }, []);
 
-  const getAuthHeaders = (token) => {
+  const getAuthHeaders = useCallback((token) => {
     const currentToken = token || getToken();
     return currentToken ? { Authorization: `Bearer ${currentToken}` } : {};
-  };
+  }, [getToken]);
 
+  // 🔹 CẬP NHẬT: Hàm logout điều hướng về trang login
   const logout = useCallback(() => {
-    setAuthToken(null); // Hàm này đã xử lý xóa cả 2 storage
+    // 1. Xóa token và state
+    setAuthToken(null);
     setIsAuthenticated(false);
     setCustomer(null);
-  }, []);
+
+    // 2. Điều hướng về trang đăng nhập
+    // Sử dụng window.location.replace để thay thế lịch sử duyệt web (không back lại được trang cũ)
+    // và reload lại trang để đảm bảo sạch state.
+    if (window.location.pathname !== "/login") {
+      window.location.replace("/login");
+    }
+  }, [setAuthToken]);
 
   const fetchCustomer = useCallback(
     async (token) => {
@@ -68,7 +77,7 @@ export const AuthProvider = ({ children }) => {
           error.response?.status,
           error.message
         );
-        // Chỉ logout nếu lỗi 401 (Unauthorized) để tránh logout oan khi mất mạng
+        // Nếu lỗi 401 (Hết phiên/Token sai) -> Tự động logout và chuyển về login
         if (error.response?.status === 401) {
           logout();
         }
@@ -76,10 +85,9 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
       }
     },
-    [logout]
+    [getAuthHeaders, logout]
   );
 
-  // 🔹 CẬP NHẬT: Hàm login nhận thêm tham số rememberMe
   const login = async (email, password, rememberMe = false) => {
     try {
       const authResponse = await apiAuthClient.post("/customer/emailpass", {
@@ -90,9 +98,7 @@ export const AuthProvider = ({ children }) => {
 
       console.log(`-> Đăng nhập thành công. Ghi nhớ: ${rememberMe}`);
       
-      // Truyền trạng thái rememberMe vào setAuthToken
       setAuthToken(token, rememberMe);
-
       await fetchCustomer(token);
 
       return { success: true };
@@ -125,7 +131,9 @@ export const AuthProvider = ({ children }) => {
         { email, password }
       );
       const registerToken = authRegisterResponse.data.token;
-      setAuthToken(registerToken); // Mặc định đăng ký xong lưu luôn (rememberMe=true mặc định)
+      
+      // Tạm thời lưu token để gọi API tạo profile
+      setAuthToken(registerToken); 
 
       // 2. Tạo customer record Store
       const headers = {
@@ -138,7 +146,7 @@ export const AuthProvider = ({ children }) => {
       const customerForm = { first_name, last_name, email, phone };
       await apiStoreClient.post("/customers", customerForm, { headers });
 
-      // 3. Login lại
+      // 3. Login lại để lấy session chuẩn
       const authLoginResponse = await apiAuthClient.post("/customer/emailpass", {
         email,
         password,
@@ -196,7 +204,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setIsLoading(false);
     }
-  }, [fetchCustomer]);
+  }, [getToken, fetchCustomer]);
 
   const value = {
     isAuthenticated,

@@ -14,7 +14,7 @@ export default async function handleSendResetPassword({
     entity_id?: string;
   };
 
-  const email = entity_id; // ✅ entity_id chính là email
+  const email = entity_id; //entity_id chính là email
 
   if (!email) {
     console.error("❌ No email found in event data:", event.data);
@@ -35,14 +35,32 @@ export default async function handleSendResetPassword({
 
   try {
     await transporter.sendMail({
-      from: process.env.SMTP_FROM,
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
       to: email,
-      subject: "Reset your password",
+      subject: "Thay đổi mật khẩu của bạn",
       html: `
-        <h2>Reset your password</h2>
-        <p>Click the button below to reset your password:</p>
-        <a href="${resetUrl}" style="background:#007bff;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;">Reset Password</a>
-        <p>If you did not request this, you can ignore this email.</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #2563eb; text-align: center;">Yêu cầu Đặt lại Mật khẩu</h2>
+          <p>Xin chào,</p>
+          <p>Chúng tôi nhận được yêu cầu thay đổi mật khẩu cho tài khoản <strong>${email}</strong> tại Digitech Shop.</p>
+          <p>Vui lòng nhấn vào nút bên dưới để tạo mật khẩu mới:</p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+              Đặt lại mật khẩu
+            </a>
+          </div>
+
+          <p style="font-size: 13px; color: #666;">
+            Hoặc sao chép đường dẫn này vào trình duyệt: <br/>
+            <a href="${resetUrl}" style="color: #2563eb;">${resetUrl}</a>
+          </p>
+          
+          <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+          <p style="font-size: 12px; color: #999; text-align: center;">
+            Nếu bạn không yêu cầu thay đổi này, vui lòng bỏ qua email này. Tài khoản của bạn vẫn an toàn.
+          </p>
+        </div>
       `,
     });
 
